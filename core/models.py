@@ -14,14 +14,19 @@ MOVIE_CHOICES = (
 )
 
 
-class CustomUser(AbstractUser):
-    profiles = models.ManyToManyField('Profile', null=True, blank=True)
-
-
 class Profile(models.Model):
     name = models.CharField(max_length=255)
     age_limit = models.CharField(max_length=10, choices=AGE_CHOICES)
     uuid = models.UUIDField(default=uuid.uuid4)
+
+
+class CustomUser(AbstractUser):
+    profiles = models.ManyToManyField('Profile', blank=True)
+
+
+class Video(models.Model):
+    title = models.CharField(max_length=225, blank=True, null=True)
+    file = models.FileField(upload_to='movies')
 
 
 class Movie(models.Model):
